@@ -96,10 +96,10 @@ public class GeneticAlgorithm {
             flight.status.statusMonths.get(b.getMonth()).addMonthGrp(plus);
             flight.status.Aff += b.aff * (double) b.CurrentAd.duration/30.0;
             if (b.prime) {
-                flight.status.statusMonths.get(b.getMonth()).addPrime();
+                flight.status.statusMonths.get(b.getMonth()).addPrime(b.grp);
             }
             else {
-                flight.status.statusMonths.get(b.getMonth()).addNonPrime();
+                flight.status.statusMonths.get(b.getMonth()).addNonPrime(b.grp);
             }
 
             for (Flight.week temp : flight.status.statusWeeks.get(b.CurrentAd.id)) {

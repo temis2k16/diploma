@@ -115,23 +115,23 @@ public class Flight{
 
     public static class month {
         double primeRatio;
-        int Prime;
-        int nonPrime;
+        double Prime;
+        double nonPrime;
         double grp;
         private void setPrimeRatio() {
             if ((Prime==nonPrime) && (Prime==0)){
                 this.primeRatio = 0;
             }
             else {
-                this.primeRatio = (double) Prime / (double) (Prime+nonPrime);
+                this.primeRatio =  Prime / (Prime+nonPrime);
             }
         }
-        void addNonPrime(){
-            this.nonPrime++;
+        void addNonPrime(double nonPrimeGRP){
+            this.nonPrime += nonPrimeGRP;
             setPrimeRatio();
         }
-        void addPrime(){
-            this.Prime++;
+        void addPrime(double PrimeGRP){
+            this.Prime += PrimeGRP;
             setPrimeRatio();
         }
         void addMonthGrp(double monthGrp) {

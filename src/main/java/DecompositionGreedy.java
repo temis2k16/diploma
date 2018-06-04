@@ -54,10 +54,10 @@ class DecompositionGreedy {
                         newBlock = forcePrime(flight, dg, thisWeek.begin);
                     }
                     if (newBlock.prime) {
-                        flight.status.statusMonths.get(newBlock.getMonth()).addPrime();
+                        flight.status.statusMonths.get(newBlock.getMonth()).addPrime(newBlock.grp);
                     }
                     else {
-                        flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime();
+                        flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
                     }
                     plus = newBlock.grp * duration / 30.0;
                     while (statusWeek.grp + plus <= thisWeek.grp){
@@ -71,10 +71,10 @@ class DecompositionGreedy {
 //                            System.out.println(statusWeek);
                         newBlock = forcePrime(flight, dg, thisWeek.begin);
                         if (newBlock.prime) {
-                            flight.status.statusMonths.get(newBlock.getMonth()).addPrime();
+                            flight.status.statusMonths.get(newBlock.getMonth()).addPrime(newBlock.grp);
                         }
                         else {
-                            flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime();
+                            flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
                         }
                         plus = newBlock.grp * duration / 30.0;
                     }

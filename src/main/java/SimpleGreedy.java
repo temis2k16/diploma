@@ -66,10 +66,10 @@ public class SimpleGreedy {
 //        just select block
 //        newBlock = sg.getBlock();
         if (newBlock.prime) {
-            flight.status.statusMonths.get(newBlock.getMonth()).addPrime();
+            flight.status.statusMonths.get(newBlock.getMonth()).addPrime(newBlock.grp);
         }
         else {
-            flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime();
+            flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
         }
 //        select ad
         CurrentAd = selectAd(flight, newBlock);
@@ -124,10 +124,10 @@ public class SimpleGreedy {
 //            just select block
             //newBlock = sg.getBlock();
             if (newBlock.prime) {
-                flight.status.statusMonths.get(newBlock.getMonth()).addPrime();
+                flight.status.statusMonths.get(newBlock.getMonth()).addPrime(newBlock.grp);
             }
             else {
-                flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime();
+                flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
             }
 //            check if we can get more grp with smaller pieces
             skips = 0;
@@ -141,10 +141,10 @@ public class SimpleGreedy {
                 skips++;
             }
             if ((newBlock.prime)&&(skips < remainder)&&(skips>0)) {
-                flight.status.statusMonths.get(newBlock.getMonth()).addPrime();
+                flight.status.statusMonths.get(newBlock.getMonth()).addPrime(newBlock.grp);
             }
             if ((!newBlock.prime)&&(skips < remainder)&&(skips>0)){
-                flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime();
+                flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
             }
         }
 //        clean temp table

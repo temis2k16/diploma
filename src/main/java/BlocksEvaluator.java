@@ -37,10 +37,10 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
 
         for (Flight.block i: temp){
             if (i.prime){
-                statusMonths.get(i.getMonth()).addPrime();
+                statusMonths.get(i.getMonth()).addPrime(i.grp);
             }
             if (!i.prime){
-                statusMonths.get(i.getMonth()).addNonPrime();
+                statusMonths.get(i.getMonth()).addNonPrime(i.grp);
             }
             matches += i.aff;
             sumGRP += i.grp * i.CurrentAd.duration/30.0;
