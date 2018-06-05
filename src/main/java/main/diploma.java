@@ -1,9 +1,14 @@
+package main;
+
+import GeneticAlgorithm.GeneticAlgorithm;
+import GeneticAlgorithm.genDbConnection;
+
 public class diploma {
 
     public static void main(String[] args) {
         genDbConnection dg = new genDbConnection();
 //        dgDbConnection dg = new dgDbConnection();
-//        Flight flight = new Flight(dg);
+//        main.Flight flight = new main.Flight(dg);
 //        System.out.println(flight);
 
 ////        run decomposition + greedy
@@ -22,7 +27,7 @@ public class diploma {
         System.out.println(flight);
 //        start timer
         long start = System.currentTimeMillis();
-//        SimpleGreedy.runSimpleGreedy(dg,flight);
+//        SimpleGreedy.SimpleGreedy.runSimpleGreedy(dg,flight);
         GeneticAlgorithm.runGeneticAlgorithm(dg,flight);
 //        stop timer
 
@@ -33,8 +38,8 @@ public class diploma {
         System.out.println("Скорость выполнения программы: " + timeWorkCode + " миллисекунд");
 
         CheckResult.UniformTest(dg,"\"geneticAlgorithm\"");
-//        CheckResult.UniformTest(dg,"\"decompositionGreedy\"");
-//        CheckResult.UniformTest(dg,"\"simpleGreedy\"");
+//        main.CheckResult.UniformTest(dg,"\"decompositionGreedy\"");
+//        main.CheckResult.UniformTest(dg,"\"simpleGreedy\"");
         CheckResult.UniformTest(dg,null);
     }
 }

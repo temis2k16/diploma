@@ -1,1 +1,1 @@
-# diploma
+# main.diploma

@@ -1,3 +1,7 @@
+package main;
+
+//import main.Flight;
+
 import java.sql.*;
 import java.util.*;
 
@@ -6,13 +10,13 @@ public class dbConnection {
     private final String user = "postgres";
     private final String pass = "postgres";
     private String SpotTable = "\"AdIssue\"";
-    Connection conn = null;
+    protected Connection conn = null;
 
     public void setSpotTable(String spotTable) {
         SpotTable = spotTable;
     }
 
-    Connection connect() {
+    private Connection connect() {
         Connection bd = null;
         try {
             bd = DriverManager.getConnection(url,user,pass);
@@ -23,11 +27,7 @@ public class dbConnection {
         return bd;
     }
 
-//    void OpenConnection() {
-//      conn = connect();
-//    }
-
-    dbConnection(){
+    protected dbConnection(){
         conn = connect();
     }
 
@@ -41,7 +41,7 @@ public class dbConnection {
         }
     }
 
-    int executeCount(String SQL) {
+    protected int executeCount(String SQL) {
         int count = 0;
         try  {
             Statement stmt = conn.createStatement();
@@ -140,7 +140,6 @@ public class dbConnection {
         try  {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
-//            rs.next();
             if(rs.next()){
                 return new Flight.block(rs.getInt(1),
                         rs.getDouble(2), rs.getDouble(3),
@@ -148,7 +147,7 @@ public class dbConnection {
                         rs.getInt(6));
             }
             else {
-//                System.out.println("wished block is not found in sub table");
+                System.out.println("wished block is not found in sub table");
                 return null;
             }
         } catch (SQLException ex) {
@@ -226,7 +225,7 @@ public class dbConnection {
                 "FROM \"WishList\" w\n" +
                 "JOIN  \"BreakIssue\" b ON w.\"blockId\" = b.id\n" +
                 "JOIN \"ForecastAffinity\" f ON f.\"blockId\"=b.id\n" +
-                "WHERE b.\"fixDuration\" >= (SELECT min(\"Ad\".duration) FROM \"Ad\")-- AND NOT b.id = 59474063\n" +
+                "WHERE b.\"fixDuration\" >= (SELECT min(\"Ad\".duration) FROM \"Ad\")\n" +
                 "      AND b.\"issueDate\" BETWEEN (SELECT \"beginDate\" FROM \"Flight\") AND (SELECT \"endDate\" FROM \"Flight\");";
         return getIdList(SQL);
     }
@@ -267,6 +266,6 @@ public class dbConnection {
         return executeCount(SQL);
     }
 
-    void createResultTable(){}
 
+    void createResultTable(){}
 }

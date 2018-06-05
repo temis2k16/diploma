@@ -1,8 +1,12 @@
+package DecompositionGreedy;
+
+import main.Flight;
+
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-class DecompositionGreedy {
+public class DecompositionGreedy {
     private static Flight.block forcePrime(Flight flight, dgDbConnection db, Date begin){
         Flight.block newBlock = db.getBlock(begin);
         if (flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
@@ -16,7 +20,7 @@ class DecompositionGreedy {
         }
         return newBlock;
     }
-    static void runDecompositionGreedy(dgDbConnection dg, Flight flight){
+    public static String runDecompositionGreedy(dgDbConnection dg, Flight flight){
         Flight.block newBlock;
         Flight.week statusWeek=null;
         double duration = 0;
@@ -24,6 +28,9 @@ class DecompositionGreedy {
         double delta = 0;
         dg.createTempTables();
         dg.createResultTable();
+
+        long start = System.currentTimeMillis();
+
         for (Map.Entry<Integer, List<Flight.week>> pair: flight.weeks.entrySet()) {
 //            System.out.println(pair.getKey());
             for (Flight.ad a: flight.Ads){
@@ -83,6 +90,8 @@ class DecompositionGreedy {
                 }
             }
         }
+        long timeWorkCode = System.currentTimeMillis() - start;
         dg.dropTempTables();
+        return "\nВремя работы алгоритма = "+ timeWorkCode + " миллисекунд\n";
     }
 }

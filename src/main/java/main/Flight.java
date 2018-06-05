@@ -1,17 +1,19 @@
+package main;
+
 import java.sql.Date;
 import java.util.*;
 
 public class Flight{
-    double TotalAmount;
-    int days;
-    List<ad> Ads;
-    List<block> Wishlist;
-    Map<Integer, List<week>> weeks;
-    Map<Integer, month> months;
-    status status;
+    public double TotalAmount;
+//    int days;
+    public List<ad> Ads;
+    public List<block> Wishlist;
+    public Map<Integer, List<week>> weeks;
+    public Map<Integer, month> months;
+    public status status;
 
-    Flight(dbConnection db) {
-        days = db.getDaysCount();
+    public Flight(dbConnection db) {
+//        days = db.getDaysCount();
         TotalAmount = db.getTotalAmount();
         Ads = db.getAds();
         Wishlist = db.getWishList();
@@ -27,13 +29,13 @@ public class Flight{
     }
 
     public static class block {
-        int id;
-        double aff;
-        double grp;
-        boolean prime;
-        Date issueDate;
-        int fixDuration;
-        ad CurrentAd;
+        public int id;
+        public double aff;
+        public double grp;
+        public boolean prime;
+        public Date issueDate;
+        public int fixDuration;
+        public ad CurrentAd;
 
         @Override
         public boolean equals(Object obj) {
@@ -44,12 +46,12 @@ public class Flight{
             this.CurrentAd = currentAd;
         }
 
-        int getMonth(){
+        public int getMonth(){
             Calendar cal = Calendar.getInstance();
             cal.setTime(issueDate);
             return cal.get(Calendar.MONTH) + 1;
         }
-        block(int id, double aff, double grp, boolean prime, Date date, int fix){
+        public block(int id, double aff, double grp, boolean prime, Date date, int fix){
             this.id = id; this.aff = aff; this.grp = grp; this.prime = prime;
             issueDate = date; fixDuration = fix;
         }
@@ -60,8 +62,8 @@ public class Flight{
     }
 
     public static class ad implements Comparable{
-        int duration;
-        int id;
+        public int duration;
+        public int id;
 
         ad(int id, int duration){
             this.id=id;
@@ -80,17 +82,17 @@ public class Flight{
         @Override
         public int compareTo(Object o) {
             int comp = ((ad) o).duration;
-        /* For Ascending order*/
+        // For Ascending order
             return this.duration - comp;
         }
     }
 
     public static class status {
-        double GRP;
-        double Aff;
-        Map<Integer,month> statusMonths;
-        Map<Integer, List<week>> statusWeeks;
-        status(Map<Integer, List<week>> sw, Map<Integer,month> sm){
+        public double GRP;
+        public double Aff;
+        public Map<Integer,month> statusMonths;
+        public Map<Integer, List<week>> statusWeeks;
+        public status(Map<Integer, List<week>> sw, Map<Integer,month> sm){
             GRP = 0;
             Aff = 0;
             statusMonths = new HashMap<>();
@@ -109,15 +111,17 @@ public class Flight{
 
         @Override
         public String toString() {
-            return "STATUS:" + String.format("\nGRP: %.2f",GRP) + String.format("\nAFF = %.2f",Aff) + "\nMonths: " + statusMonths + "\nWeeks: " + statusWeeks;
+            return "STATUS:" + String.format("\nGRP: %.2f",GRP) + String.format("\nAFF = %.2f",Aff) +
+                    "\nMonths: " + statusMonths +
+                    "\nWeeks: " + statusWeeks;
         }
     }
 
     public static class month {
-        double primeRatio;
+        public double primeRatio;
         double Prime;
         double nonPrime;
-        double grp;
+        public double grp;
         private void setPrimeRatio() {
             if ((Prime==nonPrime) && (Prime==0)){
                 this.primeRatio = 0;
@@ -126,19 +130,19 @@ public class Flight{
                 this.primeRatio =  Prime / (Prime+nonPrime);
             }
         }
-        void addNonPrime(double nonPrimeGRP){
+        public void addNonPrime(double nonPrimeGRP){
             this.nonPrime += nonPrimeGRP;
             setPrimeRatio();
         }
-        void addPrime(double PrimeGRP){
+        public void addPrime(double PrimeGRP){
             this.Prime += PrimeGRP;
             setPrimeRatio();
         }
-        void addMonthGrp(double monthGrp) {
+        public void addMonthGrp(double monthGrp) {
             this.grp += monthGrp;
         }
 
-        month(double prime, double grp) {
+        public month(double prime, double grp) {
             this.primeRatio = prime;
             this.grp = grp;
             this.Prime = 0;
@@ -151,17 +155,17 @@ public class Flight{
     }
 
     public static class week {
-        Date begin;
-        Date end;
-        double ratio;
-        double grp;
+        public Date begin;
+        public Date end;
+        public double ratio;
+        public double grp;
 
         @Override
         public boolean equals(Object obj) {
             return (((week) obj).begin.equals(this.begin)) && (((week) obj).end.equals(this.end));
         }
 
-        int getMonth(){
+        public int getMonth(){
             Calendar cal = Calendar.getInstance();
             cal.setTime(begin);
             return cal.get(Calendar.MONTH) + 1;
@@ -193,7 +197,7 @@ public class Flight{
         double ratio(){
             return ratio;
         }
-        week(Date b, Date e, double r) {
+        public week(Date b, Date e, double r) {
             begin = b;
             end = e;
             ratio = r;
@@ -208,7 +212,7 @@ public class Flight{
 
     @Override
     public String toString() {
-        return "FLIGHT:\nDays: " + days + "\nTotalAmount: " + TotalAmount +
+        return "FLIGHT:\nTotalAmount: " + TotalAmount +
                 "\nAds: " + Ads +"\nWish list: " + Wishlist +
                 "\nMonths: " + months + "\nWeeks: " + weeks;
     }

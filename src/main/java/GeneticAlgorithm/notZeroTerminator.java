@@ -1,10 +1,8 @@
-import org.uncommons.watchmaker.framework.EvolutionObserver;
+package GeneticAlgorithm;
+
 import org.uncommons.watchmaker.framework.PopulationData;
 import org.uncommons.watchmaker.framework.TerminationCondition;
 import org.uncommons.watchmaker.framework.termination.Stagnation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class notZeroTerminator implements TerminationCondition {
     private Stagnation st;

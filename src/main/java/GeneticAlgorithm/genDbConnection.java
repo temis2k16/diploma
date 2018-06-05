@@ -1,9 +1,13 @@
+package GeneticAlgorithm;
+
+import main.Flight;
+import main.dbConnection;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class genDbConnection extends dbConnection {
@@ -84,4 +88,9 @@ public class genDbConnection extends dbConnection {
         return executeDouble(SQL);
     }
 
+    public void outputResult(String path){
+        String SQL = "COPY (SELECT * from \"geneticAlgorithm\") To '" +
+                path + "' With CSV HEADER";
+        insertSomeLine(SQL);
+    }
 }

@@ -1,9 +1,14 @@
+package DecompositionGreedy;
+
+import main.Flight;
+import main.dbConnection;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class dgDbConnection extends dbConnection{
+public class dgDbConnection extends dbConnection {
     void createTempTables(){
         String SQL = "SELECT DISTINCT \"beginDate\", \"endDate\" FROM \"WeekPlan\"";
         String SQL1;
@@ -92,6 +97,12 @@ class dgDbConnection extends dbConnection{
     Flight.block getWishedBlock(int id, Date name){
         String SQL = "SELECT * FROM \"" + name.toString() + "\" WHERE id = "+ id;
         return getBlock(SQL);
+    }
+
+    public void outputResult(String path){
+        String SQL = "COPY (SELECT * from \"decompositionGreedy\") To '" +
+                path + "' With CSV HEADER";
+        insertSomeLine(SQL);
     }
 
 }

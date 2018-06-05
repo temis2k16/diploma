@@ -1,8 +1,12 @@
-import org.uncommons.watchmaker.framework.factories.*;
+package GeneticAlgorithm;
 
-import java.util.*;
+import main.Flight;
+import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory;
 
-import static java.lang.Math.abs;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class BlocksFactory extends AbstractCandidateFactory<List<Flight.block>> {
 
@@ -10,15 +14,12 @@ public class BlocksFactory extends AbstractCandidateFactory<List<Flight.block>> 
     private final int size;
     private final Flight flight;
     private final List<Flight.week> statWeek;
-    private final List<Flight.block> wishlist;
 
-    public BlocksFactory(List<Flight.block> alphabet, int size, Flight flight, List<Flight.week> statWeeks) {
+    BlocksFactory(List<Flight.block> alphabet, int size, Flight flight, List<Flight.week> statWeeks) {
         this.alphabet = alphabet;
         this.size = size;
-//        this.ads = ads;
         this.flight = flight;
         this.statWeek = statWeeks;
-        this.wishlist = flight.Wishlist;
 
     }
 
@@ -64,7 +65,6 @@ public class BlocksFactory extends AbstractCandidateFactory<List<Flight.block>> 
                 b.setCurrentAd(flight.Ads.get(rng.nextInt(flight.Ads.size())));
             }
         }
-
 
         return cand;
     }

@@ -1,8 +1,9 @@
+package GeneticAlgorithm;
+
+import main.Flight;
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
 
 import java.util.*;
-
-import static java.lang.Math.abs;
 
 public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
 {
@@ -27,7 +28,7 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
         double matches = 0.0;
         double sumGRP = 0.0;
 
-        Map<Integer,Flight.month> statusMonths = new HashMap<>();
+        Map<Integer, Flight.month> statusMonths = new HashMap<>();
 
         for (Integer i: flight.months.keySet()) {
             statusMonths.put(i, new Flight.month(0,0));
@@ -46,9 +47,9 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
             sumGRP += i.grp * i.CurrentAd.duration/30.0;
         }
 
-        for (Map.Entry<Integer,Flight.month> m:statusMonths.entrySet()){
-//            if ((m.getValue().primeRatio > flight.months.get(m.getKey()).primeRatio) ||
-            if (abs(flight.months.get(m.getKey()).primeRatio - m.getValue().primeRatio) > PrimeCoeff) {
+        for (Map.Entry<Integer, Flight.month> m:statusMonths.entrySet()){
+            if ((m.getValue().primeRatio > flight.months.get(m.getKey()).primeRatio) ||
+             (Math.abs(flight.months.get(m.getKey()).primeRatio - m.getValue().primeRatio) > PrimeCoeff)) {
                 return 0;
             }
 

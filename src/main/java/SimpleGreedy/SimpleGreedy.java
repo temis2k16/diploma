@@ -1,3 +1,7 @@
+package SimpleGreedy;
+
+import main.Flight;
+
 public class SimpleGreedy {
     private static Flight.week tempStatWeek = null;
     private static Flight.week tempWeek = null;
@@ -12,7 +16,8 @@ public class SimpleGreedy {
         {
             newBlock = db.getPrimeBlock();
         }
-        else {
+        else
+        {
             newBlock = db.getNonPrimeBlock();
         }
         return newBlock;
@@ -54,13 +59,15 @@ public class SimpleGreedy {
     public static void setRemainder(int b) {
         remainder = b;}
 
-    static void runSimpleGreedy(sgDbConnection sg, Flight flight){
+    public static String  runSimpleGreedy(sgDbConnection sg, Flight flight){
         sg.createTempTable();
         sg.createResultTable();
         Flight.ad CurrentAd;
         Flight.block newBlock;
         double plus;
         int skips;
+
+        long start = System.currentTimeMillis();
 //        select block & check prime
         newBlock = forcePrime(flight, sg);
 //        just select block
@@ -131,11 +138,9 @@ public class SimpleGreedy {
             }
 //            check if we can get more grp with smaller pieces
             skips = 0;
-//            System.out.println("plus " + plus);
             while ((flight.status.GRP + plus > flight.TotalAmount)&&(skips < remainder)){
                 sg.deleteBlock(newBlock.id);
                 newBlock = forcePrime(flight, sg);
-//                newBlock = sg.getBlock();
                 CurrentAd = selectAd(flight, newBlock);
                 plus = newBlock.grp * (double)CurrentAd.duration/30.0;
                 skips++;
@@ -147,7 +152,9 @@ public class SimpleGreedy {
                 flight.status.statusMonths.get(newBlock.getMonth()).addNonPrime(newBlock.grp);
             }
         }
+        long timeWorkCode = System.currentTimeMillis() - start;
 //        clean temp table
         sg.dropTempTable();
+        return "\nВремя работы алгоритма = "+ timeWorkCode + " миллисекунд\n";
     }
 }

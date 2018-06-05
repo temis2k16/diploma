@@ -1,9 +1,13 @@
+package SimpleGreedy;
+
+import main.Flight;
+import main.dbConnection;
+
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class sgDbConnection extends dbConnection {
+public class sgDbConnection extends dbConnection {
 
     void createTempTable(){
         String SQL2 = "select b.\"id\", f.\"calc_affinity\", b.\"grpPlan\", b.\"isPrimeTime\", b.\"issueDate\", b.\"fixDuration\"\n" +
@@ -64,5 +68,11 @@ class sgDbConnection extends dbConnection {
     Flight.block getNonPrimeBlock(){
         String SQL = "SELECT * FROM \"sgTemp\"";
         return returnNonPrimeBlock(SQL);
+    }
+
+    public void outputResult(String path){
+        String SQL = "COPY (SELECT * from \"simpleGreedy\") To '" +
+                path + "' With CSV HEADER";
+        insertSomeLine(SQL);
     }
 }

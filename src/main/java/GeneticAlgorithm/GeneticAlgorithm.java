@@ -1,22 +1,25 @@
-//The Watchmaker Framework
+package GeneticAlgorithm;//The Watchmaker Framework
+
+import main.Flight;
+import org.uncommons.maths.random.MersenneTwisterRNG;
 import org.uncommons.maths.random.PoissonGenerator;
 import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.*;
-import org.uncommons.watchmaker.framework.operators.*;
-import org.uncommons.watchmaker.framework.selection.*;
-import org.uncommons.maths.random.MersenneTwisterRNG;
+import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
+import org.uncommons.watchmaker.framework.operators.ListCrossover;
+import org.uncommons.watchmaker.framework.operators.ListOrderMutation;
+import org.uncommons.watchmaker.framework.selection.TournamentSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
 
-
 import java.util.*;
+
 import static java.lang.Math.ceil;
+
+
 public class GeneticAlgorithm {
 
-//    public static void main(final String[] args) {
-    public static void runGeneticAlgorithm(genDbConnection ga, Flight flight){
-//        genDbConnection ga = new genDbConnection();
-//        Flight flight = new Flight(ga);
-//        Flight.ad CurrentAd = flight.Ads.get(0);
+    public static String runGeneticAlgorithm(genDbConnection ga, Flight flight){
+
         ga.createTempTable();
         ga.createResultTable();
         double mean = ga.getMeanGrp();
@@ -51,7 +54,7 @@ public class GeneticAlgorithm {
         EvolutionaryOperator<List<Flight.block>> pipeline
                 = new EvolutionPipeline<>(operators);
 
-        FitnessEvaluator<List<Flight.block>> fitnessEvaluator = new BlocksEvaluator(flight, 0.35);
+        FitnessEvaluator<List<Flight.block>> fitnessEvaluator = new BlocksEvaluator(flight, 0.25);
         SelectionStrategy<Object> selection = new
                 TournamentSelection(new Probability(0.6));
 
@@ -64,7 +67,6 @@ public class GeneticAlgorithm {
                 rng);
 
         final long[] t = {0, 0};
-//        final double[] f={0.0};
         engine.addEvolutionObserver(data -> {
 //            System.out.printf("Generation %d: %s\tFITNESS = %f\n",
 //                    data.getGenerationNumber(),
@@ -75,17 +77,11 @@ public class GeneticAlgorithm {
             t[1] = data.getGenerationNumber();
         });
 
-
-//        String result = (engine.evolve(50, 5, new Stagnation(20,true))).toString();
-
         Set<Flight.block> res = new HashSet<>(engine.evolve(60, 2
                 , new notZeroTerminator(100)
                 , new GenerationCount(1000)
         ));
 
-//        System.out.println("\nRESULT:\n");
-
-//        System.out.println(res);
 
         double plus;
         for (Flight.block b: res){
@@ -101,23 +97,20 @@ public class GeneticAlgorithm {
             else {
                 flight.status.statusMonths.get(b.getMonth()).addNonPrime(b.grp);
             }
-
+        }
+        for (Flight.block b: res) {
+            plus = b.grp * (double) b.CurrentAd.duration/30.0;
             for (Flight.week temp : flight.status.statusWeeks.get(b.CurrentAd.id)) {
                 if ((b.issueDate.after(temp.begin)) && (b.issueDate.before(temp.end))
-                        || (b.issueDate.equals(temp.begin)) || (b.issueDate.equals(temp.end)) ) {
+                        || (b.issueDate.equals(temp.begin)) || (b.issueDate.equals(temp.end))) {
                     temp.addGrp(plus);
                     temp.setRatio(temp.grp / flight.status.statusMonths.get(b.getMonth()).grp);
                 }
             }
-
         }
 
-//        System.out.println(flight);
-//        System.out.println(flight.status);
-        System.out.println("\ntime = "+ t[0]+" milliseconds\nmax generation = " + t[1]);
-
-//        CheckResult.UniformTest(ga, "\"geneticAlgorithm\"");
-//        CheckResult.UniformTest(ga,null);
+        ga.dropTempTable();
+        return "\nВремя работы алгоритма = "+ t[0]+" миллисекунд\nЧисло поколений = " + t[1];
 
     }
 }
