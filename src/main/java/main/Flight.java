@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Flight{
     public double TotalAmount;
-//    int days;
     public List<ad> Ads;
     public List<block> Wishlist;
     public Map<Integer, List<week>> weeks;
