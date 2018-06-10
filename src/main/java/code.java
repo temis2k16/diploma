@@ -22,7 +22,6 @@ public class window {
     private ButtonGroup buttonGroup1;
 
     public window() {
-
         goButton.addActionListener(e -> {
             if (geneticRadioButton.isSelected()){
                 genDbConnection ga = new genDbConnection();
