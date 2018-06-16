@@ -12,7 +12,6 @@ public class Flight{
     public status status;
 
     public Flight(dbConnection db) {
-//        days = db.getDaysCount();
         TotalAmount = db.getTotalAmount();
         Ads = db.getAds();
         Wishlist = db.getWishList();
@@ -164,7 +163,7 @@ public class Flight{
             return (((week) obj).begin.equals(this.begin)) && (((week) obj).end.equals(this.end));
         }
 
-        public int getMonth(){
+        int getMonth(){
             Calendar cal = Calendar.getInstance();
             cal.setTime(begin);
             return cal.get(Calendar.MONTH) + 1;
@@ -177,7 +176,7 @@ public class Flight{
             this.end = end;
         }
 
-        public void setGrp (double grp) {this.grp = grp;}
+        void setGrp (double grp) {this.grp = grp;}
 
         public void setRatio(double ratio) {
             this.ratio = ratio;

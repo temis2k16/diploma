@@ -8,7 +8,6 @@ import java.util.*;
 public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
 {
     private final double limit;
-//    private final double duration;
     private final Flight flight;
     private final double PrimeCoeff;
 
@@ -16,9 +15,7 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
     BlocksEvaluator(Flight flight, double PrimeCoefficient ){
         this.limit = flight.TotalAmount;
         this.flight = flight;
-//        this.duration = flight.Ads.get(flight.Ads.size()-1).duration;
         this.PrimeCoeff = PrimeCoefficient;
-//        this.duration = flight.Ads.get(0).duration;
     }
 
     public double getFitness(List<Flight.block> candidate,
@@ -43,7 +40,7 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
             if (!i.prime){
                 statusMonths.get(i.getMonth()).addNonPrime(i.grp);
             }
-            matches += i.aff;
+            matches += i.aff * i.CurrentAd.duration/30.0;
             sumGRP += i.grp * i.CurrentAd.duration/30.0;
         }
 

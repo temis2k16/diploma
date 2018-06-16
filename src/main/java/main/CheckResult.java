@@ -21,17 +21,10 @@ public class CheckResult {
         db.getObservedSpots(O, minDay, table);
         double D = dispersion(days, O, M);
         String report = "UNIFORM TEST:\n";
-//        System.out.println("UNIFORM TEST:");
-//        System.out.println(String.format("%d days in flight", days));
         report += String.format("%d days in flight\n", days);
-//        System.out.println(String.format("%d spots", spots));
         report += String.format("%d spots\n", spots);
-//        System.out.println(String.format("Expected = %f", M));
         report += String.format("Expected = %f\n", M);
-//        System.out.println(Arrays.toString(O));
         report += Arrays.toString(O);
-//        System.out.println(String.format("D = %f", D));
-//        System.out.println(String.format("С.К.О = %f", Math.sqrt(D)));
         report += String.format("\nС.К.О = %f", Math.sqrt(D));
         return report;
 

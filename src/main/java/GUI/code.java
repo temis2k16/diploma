@@ -1,3 +1,5 @@
+package GUI;
+
 import DecompositionGreedy.DecompositionGreedy;
 import DecompositionGreedy.dgDbConnection;
 import GeneticAlgorithm.GeneticAlgorithm;
@@ -10,7 +12,7 @@ import main.Flight;
 import javax.swing.*;
 import java.awt.*;
 
-public class window {
+public class code {
     private JRadioButton sgRadioButton;
     private JRadioButton cgRadioButton;
     private JRadioButton geneticRadioButton;
@@ -21,7 +23,7 @@ public class window {
     private JTextPane State;
     private ButtonGroup buttonGroup1;
 
-    public window() {
+    public code() {
         goButton.addActionListener(e -> {
             if (geneticRadioButton.isSelected()){
                 genDbConnection ga = new genDbConnection();
@@ -98,7 +100,7 @@ public class window {
     public static void main(String[] args){
         JFrame frame = new JFrame("Smart spot manager");
         frame.setResizable(false);
-        frame.setContentPane(new window().panelMain);
+        frame.setContentPane(new code().panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

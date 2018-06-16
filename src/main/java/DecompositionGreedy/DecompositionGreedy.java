@@ -9,13 +9,20 @@ import java.util.Map;
 public class DecompositionGreedy {
     private static Flight.block forcePrime(Flight flight, dgDbConnection db, Date begin){
         Flight.block newBlock = db.getBlock(begin);
-        if (flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
+        if ((flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
                 <
                 flight.months.get(newBlock.getMonth()).primeRatio)
+                &&
+                (!newBlock.prime))
         {
             newBlock = db.getPrimeBlock(begin);
         }
-        else {
+        else if ((flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
+                >
+                flight.months.get(newBlock.getMonth()).primeRatio)
+                &&
+                (newBlock.prime))
+        {
             newBlock = db.getNonPrimeBlock(begin);
         }
         return newBlock;

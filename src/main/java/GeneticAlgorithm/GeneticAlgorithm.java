@@ -1,6 +1,8 @@
-package GeneticAlgorithm;//The Watchmaker Framework
+package GeneticAlgorithm;
 
 import main.Flight;
+
+//The Watchmaker Framework
 import org.uncommons.maths.random.MersenneTwisterRNG;
 import org.uncommons.maths.random.PoissonGenerator;
 import org.uncommons.maths.random.Probability;
@@ -29,8 +31,8 @@ public class GeneticAlgorithm {
         List<Flight.block> values = ga.getAllBlocks();
 
         double size = flight.TotalAmount/ mean;
+        //pack weeks into list
         List<Flight.week> statWeeks = new ArrayList<>();
-
         for (Map.Entry<Integer, List<Flight.week>> pair: flight.weeks.entrySet()) {
             for (Flight.week week: pair.getValue()){
                 if (statWeeks.contains(week)){
@@ -49,14 +51,13 @@ public class GeneticAlgorithm {
                 = new LinkedList<>();
 
         operators.add(new ListOrderMutation<>(new PoissonGenerator(2, rng), new PoissonGenerator(2, rng)));
-        operators.add(new ListCrossover<>((rng.nextInt(2)+1)));
-//        operators.add(new ListCrossover<>());
+        operators.add(new ListCrossover<>(2));
         EvolutionaryOperator<List<Flight.block>> pipeline
                 = new EvolutionPipeline<>(operators);
 
         FitnessEvaluator<List<Flight.block>> fitnessEvaluator = new BlocksEvaluator(flight, 0.25);
         SelectionStrategy<Object> selection = new
-                TournamentSelection(new Probability(0.6));
+                TournamentSelection(new Probability(0.8));
 
 
         EvolutionEngine<List<Flight.block>> engine
@@ -68,22 +69,22 @@ public class GeneticAlgorithm {
 
         final long[] t = {0, 0};
         engine.addEvolutionObserver(data -> {
-//            System.out.printf("Generation %d: %s\tFITNESS = %f\n",
-//                    data.getGenerationNumber(),
-//                    data.getBestCandidate(),
-//                    data.getBestCandidateFitness());
-//            f[0] = data.getBestCandidateFitness();
+        /*    System.out.printf("Generation %d: %s\tFITNESS = %f\n",
+                    data.getGenerationNumber(),
+                    data.getBestCandidate(),
+                    data.getBestCandidateFitness());*/
             t[0] = data.getElapsedTime();
             t[1] = data.getGenerationNumber();
         });
 
-        Set<Flight.block> res = new HashSet<>(engine.evolve(60, 2
+        Set<Flight.block> res = new HashSet<>(engine.evolve(80, 3
                 , new notZeroTerminator(100)
                 , new GenerationCount(1000)
         ));
 
 
         double plus;
+//        flight.status.Aff = f[0];
         for (Flight.block b: res){
             plus = b.grp * (double) b.CurrentAd.duration/30.0;
             ga.addResultLine(b.id, b.CurrentAd.id, b.issueDate, plus);

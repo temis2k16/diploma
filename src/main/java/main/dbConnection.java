@@ -1,7 +1,5 @@
 package main;
 
-//import main.Flight;
-
 import java.sql.*;
 import java.util.*;
 
@@ -12,9 +10,6 @@ public class dbConnection {
     private String SpotTable = "\"AdIssue\"";
     protected Connection conn = null;
 
-    public void setSpotTable(String spotTable) {
-        SpotTable = spotTable;
-    }
 
     private Connection connect() {
         Connection bd = null;
@@ -29,16 +24,6 @@ public class dbConnection {
 
     protected dbConnection(){
         conn = connect();
-    }
-
-    void CloseConnection(){
-        try {
-            conn.close();
-        }
-        catch (SQLException e){
-            System.err.println(e.getMessage());
-            System.exit(0);
-        }
     }
 
     protected int executeCount(String SQL) {
@@ -265,7 +250,6 @@ public class dbConnection {
         String SQL = "SELECT count(*) FROM " + Table;
         return executeCount(SQL);
     }
-
 
     void createResultTable(){}
 }
