@@ -19,15 +19,4 @@
         </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>io.jenetics</groupId>
-            <artifactId>jenetics</artifactId>
-            <version>4.1.0</version>
-        </dependency>
-    </dependencies>
-
-
-
-
 </project>

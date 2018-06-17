@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="code:jar">
+  <artifact type="jar" name="code:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/code_jar</output-path>
     <root id="archive" name="code.jar">
       <element id="module-output" name="code" />
@@ -7,6 +7,10 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/watchmaker-framework-0.7.1/lib/google-collect-1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/postgresql-42.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/watchmaker-framework-0.7.1/watchmaker-framework-0.7.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="google-collect-1.0" />
+      <element id="library" level="project" name="postgresql-42.2.2" />
+      <element id="library" level="project" name="uncommons-maths-1.2.1" />
+      <element id="library" level="project" name="watchmaker-framework-0.7.1" />
     </root>
   </artifact>
 </component>

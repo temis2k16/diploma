@@ -17,8 +17,7 @@ public class genDbConnection extends dbConnection {
                 "INTO \"genTemp\"\n" +
                 "FROM \"ForecastAffinity\" f RIGHT JOIN \"BreakIssue\" b ON f.\"blockId\" = b.id\n" +
                 "WHERE b.\"fixDuration\" >= (SELECT min(\"Ad\".duration) FROM \"Ad\")\n" +
-                "AND b.\"issueDate\" BETWEEN (SELECT \"beginDate\" FROM \"Flight\") AND (SELECT \"endDate\" FROM \"Flight\")"+
-                "ORDER BY calc_affinity DESC ";
+                "AND b.\"issueDate\" BETWEEN (SELECT \"beginDate\" FROM \"Flight\") AND (SELECT \"endDate\" FROM \"Flight\")";
         String SQL1 ="DROP TABLE IF EXISTS \"genTemp\"";
         createSomeTable(SQL1, SQL2);
     }

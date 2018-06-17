@@ -33,6 +33,7 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
 
         Set<Flight.block> temp = new HashSet<>(candidate);
 
+        int wish = 0;
         for (Flight.block i: temp){
             if (i.prime){
                 statusMonths.get(i.getMonth()).addPrime(i.grp);
@@ -42,6 +43,15 @@ public class BlocksEvaluator implements FitnessEvaluator<List<Flight.block>>
             }
             matches += i.aff * i.CurrentAd.duration/30.0;
             sumGRP += i.grp * i.CurrentAd.duration/30.0;
+            for (Flight.block w: flight.Wishlist){
+                if (i.id == w.id){
+                    wish++;
+                }
+            }
+        }
+
+        if (wish < flight.Wishlist.size()){
+            return 0;
         }
 
         for (Map.Entry<Integer, Flight.month> m:statusMonths.entrySet()){

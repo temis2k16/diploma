@@ -11,9 +11,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="postgresql-42.2.2" level="project" />
-    <orderEntry type="library" name="watchmaker-framework-0.7.1" level="project" />
-    <orderEntry type="library" name="uncommons-maths-1.2.1" level="project" />
-    <orderEntry type="library" name="google-collect-1.0" level="project" />
+    <orderEntry type="library" exported="" name="postgresql-42.2.2" level="project" />
+    <orderEntry type="library" exported="" name="watchmaker-framework-0.7.1" level="project" />
+    <orderEntry type="library" exported="" name="uncommons-maths-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="google-collect-1.0" level="project" />
   </component>
 </module>

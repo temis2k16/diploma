@@ -29,10 +29,9 @@ public class BlocksFactory extends AbstractCandidateFactory<List<Flight.block>> 
         Flight.block b;
 
         for (int i = 0; i < size; i++) {
-
             if (tempWish.size() > 0){
-                cand.add(alphabet.get(alphabet.indexOf(tempWish.get(i))));
-                tempWish.remove(i);
+                cand.add(alphabet.get(alphabet.indexOf(tempWish.get(0))));
+                tempWish.remove(0);
             }
             else {
                 cand.add(alphabet.get(rng.nextInt(alphabet.size())));

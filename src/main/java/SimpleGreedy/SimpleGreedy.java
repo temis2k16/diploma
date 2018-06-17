@@ -10,13 +10,19 @@ public class SimpleGreedy {
 
     private static Flight.block forcePrime(Flight flight, sgDbConnection db){
         Flight.block newBlock = db.getBlock();
-        if (flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
+        if ((flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
                 <
                 flight.months.get(newBlock.getMonth()).primeRatio)
+                &&
+                (!newBlock.prime))
         {
             newBlock = db.getPrimeBlock();
         }
-        else
+        else if ((flight.status.statusMonths.get(newBlock.getMonth()).primeRatio
+                >
+                flight.months.get(newBlock.getMonth()).primeRatio)
+                &&
+                (newBlock.prime))
         {
             newBlock = db.getNonPrimeBlock();
         }
@@ -80,11 +86,8 @@ public class SimpleGreedy {
         }
 //        select ad
         CurrentAd = selectAd(flight, newBlock);
-//        System.out.println(CurrentAd);
 //        calculate plus
         plus = newBlock.grp * (double)CurrentAd.duration/30.0;
-
-//        System.out.println("plus = " + plus);
         while (flight.status.GRP + plus <= flight.TotalAmount)
         {
 //            statistics correction
@@ -93,7 +96,6 @@ public class SimpleGreedy {
             flight.status.Aff += newBlock.aff * (double)CurrentAd.duration/30.0;
             tempStatWeek.addGrp(plus);
             tempStatWeek.setRatio(tempStatWeek.grp / flight.months.get(newBlock.getMonth()).grp);
-//            tempStatWeek.setRatio(tempStatWeek.grp / flight.status.statusMonths.get(newBlock.getMonth()).grp);
 
 //            memorising selected block and ad
             sg.addResultLine(newBlock.id, CurrentAd.id, newBlock.issueDate, plus);
